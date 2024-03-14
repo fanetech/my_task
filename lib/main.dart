@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_task/components/form.dart';
 import 'package:my_task/route_generator.dart';
+import 'package:my_task/showTask.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,13 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+List<String> getListElement() {
+  return List<String>.generate(10, (index) => 'Item $index');
+}
+
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> listGenerated = getListElement();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Text('list of tasks'),
+      body: ShowTask(listData: listGenerated),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed('/form', arguments: 'Form data');

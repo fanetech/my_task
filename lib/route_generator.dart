@@ -15,7 +15,7 @@ class RouteGenerator {
         // Validation of correct data type
         if (args is String) {
           return MaterialPageRoute(
-            builder: (_) => FormUi(
+            builder: (context) => FormUi(
               data: args,
             ),
           );
