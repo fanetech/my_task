@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_task/common/taskObject.dart';
 
 class ShowTask extends StatefulWidget {
-  final List<String> listData;
+  final List<TaskObject> listData;
 
   const ShowTask({super.key, required this.listData});
 
@@ -18,17 +20,19 @@ class _ShowTaskState extends State<ShowTask> {
   }
 }
 
-Widget getListView(List<String> items) {
+Widget getListView(List<TaskObject> items) {
   var listView = ListView.builder(
     itemCount: items.length,
     itemBuilder: (context, index) {
-      return ListTile(
-        leading: const Icon(Icons.arrow_right),
-        title: Text(items[index]),
-        onTap: () {
-          debugPrint('${items[index]} was tapped');
-        },
-      );
+      if (items[index].name != null) {
+        return CheckboxListTile(
+          title: Text(items[index].name),
+          subtitle: Text(DateFormat('d/M/y').format(DateTime.now()).toString()),
+          value: items[index].status,
+          onChanged: (bool? value) {},
+          secondary: const Icon(Icons.task_alt_rounded),
+        );
+      }
     },
   );
   return listView;

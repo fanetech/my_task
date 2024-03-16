@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:my_task/components/form.dart';
 import 'package:my_task/main.dart';
@@ -13,10 +15,10 @@ class RouteGenerator {
             builder: (_) => const MyHomePage(title: 'Manageur de tache'));
       case '/form':
         // Validation of correct data type
-        if (args is String) {
+        if (args != null) {
           return MaterialPageRoute(
             builder: (context) => FormUi(
-              data: args,
+              onDataReceived: args as dynamic Function(String),
             ),
           );
         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_task/common/taskObject.dart';
 import 'package:my_task/components/form.dart';
 import 'package:my_task/route_generator.dart';
 import 'package:my_task/showTask.dart';
@@ -40,7 +41,13 @@ List<String> getListElement() {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> listGenerated = getListElement();
+  List<TaskObject> listGenerated = [];
+
+  void updateReceivedData(String newData) {
+    setState(() {
+      listGenerated.add(TaskObject(newData, false));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ShowTask(listData: listGenerated),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/form', arguments: 'Form data');
+          Navigator.of(context)
+              .pushNamed('/form', arguments: updateReceivedData);
         },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_task),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
